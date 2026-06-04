@@ -32,7 +32,7 @@ MODELS_DIR  = "./models"
 
 os.makedirs(PLOTS_DIR, exist_ok=True)
 
-# ── Load results 
+#  Load results 
 
 print("Loading results...")
 rf_res  = joblib.load(os.path.join(RESULTS_DIR, "rf_results.pkl"))
@@ -44,7 +44,7 @@ X_test  = np.load(os.path.join(DATA_DIR, "X_test.npy"))
 y_test  = np.load(os.path.join(DATA_DIR, "y_test.npy"))
 y_train = np.load(os.path.join(DATA_DIR, "y_train.npy"))
 
-# ── Load models for probability scores
+#  Load models for probability scores
 
 print("Loading models...")
 rf_model = joblib.load(os.path.join(MODELS_DIR, "random_forest.pkl"))
@@ -55,7 +55,7 @@ import tensorflow as tf
 nn_model  = tf.keras.models.load_model(os.path.join(MODELS_DIR, "neural_network.keras"))
 dqn_model = tf.keras.models.load_model(os.path.join(MODELS_DIR, "dqn_model.keras"))
 
-# ── Get probability scores
+#  Get probability scores
 
 print("Getting probability scores...")
 
@@ -69,7 +69,7 @@ nn_probs = nn_model.predict(X_test, batch_size=1024, verbose=0).flatten()
 dqn_qvals = dqn_model.predict(X_test.astype(np.float32), batch_size=1024, verbose=0)
 dqn_probs = tf.nn.softmax(dqn_qvals).numpy()[:, 1]
 
-# ── Plot 1: ROC Curve
+#  Plot 1: ROC Curve
 
 print("Generating ROC curve...")
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -98,7 +98,7 @@ plt.savefig(os.path.join(PLOTS_DIR, "roc_curve.png"), dpi=150)
 plt.close()
 print("  Saved: plots/roc_curve.png")
 
-# ── Plot 2: Precision-Recall Curve
+#  Plot 2: Precision-Recall Curve
 
 print("Generating Precision-Recall curve...")
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -119,7 +119,7 @@ plt.savefig(os.path.join(PLOTS_DIR, "precision_recall_curve.png"), dpi=150)
 plt.close()
 print("  Saved: plots/precision_recall_curve.png")
 
-# ── Plot 3: False Positive vs False Negative
+#  Plot 3: False Positive vs False Negative
 
 print("Generating FP vs FN comparison...")
 model_names = ["Random Forest", "Neural Network\n(MLP)", "DQN (RL)"]
@@ -162,7 +162,7 @@ plt.savefig(os.path.join(PLOTS_DIR, "fp_fn_comparison.png"), dpi=150)
 plt.close()
 print("  Saved: plots/fp_fn_comparison.png")
 
-# ── Plot 4: Learning Curve (RF)
+#  Plot 4: Learning Curve (RF)
 
 print("Generating RF learning curve (this may take a few minutes)...")
 rf_lc = RandomForestClassifier(n_estimators=50, n_jobs=-1, random_state=42)
