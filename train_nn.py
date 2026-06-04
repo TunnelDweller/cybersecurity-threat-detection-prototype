@@ -29,7 +29,7 @@ from sklearn.metrics import (
     f1_score, confusion_matrix, classification_report
 )
 
-# ── Configuration 
+#  Configuration 
 
 DATA_DIR    = "./data"
 OUTPUT_DIR  = "./models"
@@ -50,7 +50,7 @@ EARLY_STOP_PATIENCE = 5
 RANDOM_STATE = 42
 tf.random.set_seed(RANDOM_STATE)
 
-# ── Build model 
+#  Build model 
 
 def build_mlp(input_dim, num_classes):
     model = keras.Sequential(name="MLP_IDS")
@@ -81,7 +81,7 @@ def build_mlp(input_dim, num_classes):
     )
     return model, loss
 
-# ── Main 
+#  Main 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -99,11 +99,11 @@ def main():
     print(f"  Train: {X_train.shape},  Test: {X_test.shape}")
     print(f"  Classes: {num_classes},  Features: {input_dim}")
 
-    # ── Build 
+    #  Build 
     model, loss_fn = build_mlp(input_dim, num_classes)
     model.summary()
 
-    # ── Callbacks
+    #  Callbacks
     early_stop = callbacks.EarlyStopping(
         monitor="val_loss",
         patience=EARLY_STOP_PATIENCE,
@@ -117,7 +117,7 @@ def main():
         verbose=1
     )
 
-    # ── Train 
+    #  Train 
     print("\nTraining Neural Network...")
     start = time.time()
 
@@ -133,7 +133,7 @@ def main():
     train_time = time.time() - start
     print(f"\nTraining time: {train_time:.2f}s")
 
-    # ── Evaluate 
+    #  Evaluate 
     print("\nEvaluating on test set...")
     start = time.time()
 
@@ -152,7 +152,7 @@ def main():
     f1   = f1_score(y_test, y_pred, average="weighted", zero_division=0)
     cm   = confusion_matrix(y_test, y_pred)
 
-    print("\n── Neural Network (MLP) Results ───────────────────────")
+    print("\n Neural Network (MLP) Results ─")
     print(f"  Accuracy  : {acc:.4f}")
     print(f"  Precision : {prec:.4f}")
     print(f"  Recall    : {rec:.4f}")
@@ -164,7 +164,7 @@ def main():
     print("Confusion Matrix:")
     print(cm)
 
-    # ── Save model and results 
+    #  Save model and results 
     model.save(os.path.join(OUTPUT_DIR, "neural_network.keras"))
     print(f"\nModel saved to '{OUTPUT_DIR}/neural_network.keras'")
 
