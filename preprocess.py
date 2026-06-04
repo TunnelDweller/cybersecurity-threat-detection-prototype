@@ -19,7 +19,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from imblearn.over_sampling import SMOTE
 import joblib
 
-# ── Configuration 
+#  Configuration 
 
 # Folder containing CIC-IDS2017 CSV files
 DATA_DIR = "./cicids2017"
@@ -33,13 +33,13 @@ RANDOM_STATE = 42
 
 OUTPUT_DIR = "./data"
 
-# ── Column name cleaning 
+#  Column name cleaning 
 
 def clean_column_names(df):
     df.columns = df.columns.str.strip()
     return df
 
-# ── Load all CSVs
+#  Load all CSVs
 
 def load_dataset(data_dir):
     csv_files = glob.glob(os.path.join(data_dir, "*.csv"))
@@ -61,7 +61,7 @@ def load_dataset(data_dir):
     print(f"\nTotal records loaded: {len(combined):,}")
     return combined
 
-# ── Preprocessing 
+#  Preprocessing 
 
 def preprocess(df, binary=True):
     # 1. Identify label column
@@ -113,7 +113,7 @@ def preprocess(df, binary=True):
 
     return X_scaled, np.array(y), feature_names
 
-# ── Main 
+#  Main 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
