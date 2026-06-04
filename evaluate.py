@@ -22,7 +22,7 @@ import seaborn as sns
 RESULTS_DIR = "./results"
 PLOTS_DIR   = "./plots"
 
-# ── Helpers 
+#  Helpers 
 
 def load_results(filename):
     path = os.path.join(RESULTS_DIR, filename)
@@ -161,7 +161,7 @@ def plot_train_time_comparison(results_list, save_path):
     print(f"  Saved: {save_path}")
 
 
-# ── Main 
+#  Main 
 
 def main():
     os.makedirs(PLOTS_DIR, exist_ok=True)
@@ -173,7 +173,7 @@ def main():
 
     all_results = [rf_res, nn_res, dqn_res]
 
-    # ── Summary table 
+    #  Summary table 
     print("\n" + "=" * 72)
     print("  MODEL COMPARISON SUMMARY")
     print("=" * 72)
@@ -195,7 +195,7 @@ def main():
         print(f"  {name:<18} {rv:>16.4f} {nv:>16.4f} {dv:>12.4f}")
     print("=" * 72)
 
-    # ── Plots 
+    #  Plots 
     print("\nGenerating plots...")
 
     plot_confusion_matrix(
