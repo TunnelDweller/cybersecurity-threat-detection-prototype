@@ -31,7 +31,7 @@ from sklearn.metrics import (
     f1_score, confusion_matrix, classification_report
 )
 
-# ── Configuration
+#  Configuration
 
 DATA_DIR    = "./data"
 OUTPUT_DIR  = "./models"
@@ -54,7 +54,7 @@ tf.random.set_seed(RANDOM_STATE)
 np.random.seed(RANDOM_STATE)
 random.seed(RANDOM_STATE)
 
-# ── Build Q-Network 
+#  Build Q-Network 
 
 def build_q_network(input_dim, n_actions=2):
     model = keras.Sequential([
@@ -73,7 +73,7 @@ def build_q_network(input_dim, n_actions=2):
     )
     return model
 
-# ── Replay Buffer 
+#  Replay Buffer 
 
 class ReplayBuffer:
     def __init__(self, capacity):
@@ -95,7 +95,7 @@ class ReplayBuffer:
     def __len__(self):
         return len(self.buffer)
 
-# ── Training 
+#  Training 
 
 def train_dqn(X_train, y_train, input_dim):
     q_network      = build_q_network(input_dim)
@@ -170,7 +170,7 @@ def train_dqn(X_train, y_train, input_dim):
     print(f"\nTotal training time: {train_time:.2f}s")
     return q_network, train_time
 
-# ── Evaluation
+#  Evaluation
 
 def evaluate_dqn(q_network, X_test, y_test):
     print("\nEvaluating on test set...")
@@ -187,7 +187,7 @@ def evaluate_dqn(q_network, X_test, y_test):
     f1   = f1_score(y_test, y_pred, average="weighted", zero_division=0)
     cm   = confusion_matrix(y_test, y_pred)
 
-    print("\n── DQN Results ────────────────────────────────────────")
+    print("\n DQN Results ")
     print(f"  Accuracy  : {acc:.4f}")
     print(f"  Precision : {prec:.4f}")
     print(f"  Recall    : {rec:.4f}")
@@ -201,7 +201,7 @@ def evaluate_dqn(q_network, X_test, y_test):
 
     return acc, prec, rec, f1, cm, y_pred, infer_time
 
-# ── Main ────────────────────────────────────────────────────────────────────────
+#  Main 
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
