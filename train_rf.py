@@ -21,7 +21,7 @@ from sklearn.metrics import (
     f1_score, confusion_matrix, classification_report
 )
 
-# ── Configuration 
+#  Configuration 
 
 DATA_DIR   = "./data"
 OUTPUT_DIR = "./models"
@@ -33,7 +33,7 @@ MAX_DEPTH    = None      # None = grow full trees
 N_JOBS       = -1        # Use all CPU cores
 RANDOM_STATE = 42
 
-# ── Main 
+#  Main 
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -51,7 +51,7 @@ def main():
 
     print(f"  Train: {X_train.shape}, Test: {X_test.shape}")
 
-    # ── Train
+    #  Train
     print("\nTraining Random Forest...")
     rf = RandomForestClassifier(
         n_estimators=N_ESTIMATORS,
@@ -65,7 +65,7 @@ def main():
     train_time = time.time() - start
     print(f"  Training time: {train_time:.2f}s")
 
-    # ── Evaluate 
+    #  Evaluate 
     print("\nEvaluating on test set...")
     start = time.time()
     y_pred = rf.predict(X_test)
@@ -77,7 +77,7 @@ def main():
     f1   = f1_score(y_test, y_pred, average="weighted", zero_division=0)
     cm   = confusion_matrix(y_test, y_pred)
 
-    print("\n── Random Forest Results ──────────────────────────────")
+    print("\n Random Forest Results ")
     print(f"  Accuracy  : {acc:.4f}")
     print(f"  Precision : {prec:.4f}")
     print(f"  Recall    : {rec:.4f}")
@@ -89,14 +89,14 @@ def main():
     print("Confusion Matrix:")
     print(cm)
 
-    # ── Feature Importance (top 15) 
+    #  Feature Importance (top 15) 
     importances = rf.feature_importances_
     top_idx = np.argsort(importances)[::-1][:15]
     print("\nTop 15 Feature Importances:")
     for rank, i in enumerate(top_idx, 1):
         print(f"  {rank:2d}. {feature_names[i]:<40s}  {importances[i]:.4f}")
 
-    # ── Save model and results 
+    #  Save model and results 
     joblib.dump(rf, os.path.join(OUTPUT_DIR, "random_forest.pkl"))
     print(f"\nModel saved to '{OUTPUT_DIR}/random_forest.pkl'")
 
